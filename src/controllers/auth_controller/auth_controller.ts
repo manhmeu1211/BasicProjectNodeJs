@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import Ultils from "../.././helpers/ultils"
+import { md5, signToken } from "../../common/ultils"
 import { User } from "../../models-sequelize/user/user_model";
 import { errorHandler, StatusCodeException } from "../../middleware/error_middleware";
-import HttpException from "../../helpers/http-exception";
+import HttpException from "../../common/http-exception";
 import * as _ from 'lodash';
+import { Colums } from "../../common/strings";
 
 //Authen and author
 class AuthController {
@@ -15,9 +16,15 @@ class AuthController {
         }
         try {
             //Query
-            let passwordMd5 = `${Ultils.md5(`${password}`)}`;
+            let passwordMd5 = `${md5(`${password}`)}`;
             const users = await User.findAll({
-                attributes: ['id', 'name', 'address', 'birthday', 'company_id'],
+                attributes: [Colums.id,
+                Colums.name,
+                Colums.address,
+                Colums.birthday,
+                Colums.avatarUrl,
+                Colums.role,
+                Colums.companyId],
                 where: {
                     username: username,
                     password: passwordMd5
@@ -27,14 +34,15 @@ class AuthController {
             if (_.first(users) === undefined) {
                 errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, 'Email or password wrong'), req, res)
             } else {
-                let token = Ultils.signToken({
-                    id: _.first(users).getDataValue('id'),
-                    name: _.first(users).getDataValue('name'),
-                    address: _.first(users).getDataValue('address'),
-                    birthday: _.first(users).getDataValue('birthday'),
-                    company_id: _.first(users).getDataValue('company_id'),
+                let token = signToken({
+                    id: _.first(users).getDataValue(Colums.id),
+                    name: _.first(users).getDataValue(Colums.name),
+                    address: _.first(users).getDataValue(Colums.address),
+                    birthday: _.first(users).getDataValue(Colums.birthday),
+                    company_id: _.first(users).getDataValue(Colums.companyId),
+                    role: _.first(users).getDataValue(Colums.role)
                 })
-                res.status(StatusCodeException.SUCESS).send({status: StatusCodeException.SUCESS, token: token})
+                res.status(StatusCodeException.SUCESS).send({ status: StatusCodeException.SUCESS, token: token })
             }
         } catch {
             errorHandler(new HttpException(StatusCodeException.SOMETHIMG_WRONG, 'Something went wrong'), req, res)

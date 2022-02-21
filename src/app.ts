@@ -8,7 +8,12 @@ import helmet from "helmet";
 import { errorHandler } from "./middleware/error_middleware";
 import { dbConfig } from './helpers/dbconfig'
 import { authRouter } from "./routes/auth_route/auth_route";
+import { usersRouter } from "./routes/user_route/user_route";
+import { projectRouter } from "./routes/project_route/project_router";
+import { companyRouter } from "./routes/company_route/company_route";
+
 import * as _ from 'lodash';
+import { rankingRouter } from "./routes/ranking_route/ranking_route";
 
 //Load env varriable from file .env to process.env
 dotenv.config();
@@ -37,8 +42,16 @@ app.use(express.urlencoded())
 
 //Auth Router
 app.use("/login", authRouter);
+//Company Router
+app.use("/companies", companyRouter)
+//User Router
+app.use("/users", usersRouter);
+//Project Router
+app.use("/projects", projectRouter)
+//Ranking Router
+app.use("/ranking", rankingRouter)
 
-//DB connect
+//DB connect=
 dbConfig.authenticate()
   .then(() => console.log("Connected database"))
   .catch(() => console.log("Cannot connect database"))

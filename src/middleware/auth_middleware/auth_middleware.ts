@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
-import HttpException from "../../helpers/http-exception";
+import HttpException from "../../common/http-exception";
 import config from "../../helpers/jwtConfig"
 import { errorHandler, StatusCodeException } from "../../middleware/error_middleware";
 
