@@ -14,6 +14,7 @@
   */
  
  // GET Employees/
- usersRouter.get("/", [checkJwt], UserController.getAllUser);
+usersRouter.get("/", [checkJwt], UserController.getAllUser);
  
- 
+// GET Employee/:id
+usersRouter.get("/:id", [checkJwt], UserController.getUser);
