@@ -25,5 +25,6 @@
  + User Authen and author
  + User CRUD
  + Company CRUD
- + Project CRUD
+ + Project CRUD ( search, filter )
+ + Ranking user theo company ( tính theo project user đã closed được )
  + Chat basic giữa các user sử dụng socket
