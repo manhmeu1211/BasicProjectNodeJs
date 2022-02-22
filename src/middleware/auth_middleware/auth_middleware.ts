@@ -5,7 +5,7 @@ import config from "../../helpers/jwtConfig"
 import { errorHandler, StatusCodeException } from "../../middleware/error_middleware";
 
 // Check Bearer token
-export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
+export const verifyUser = (req: Request, res: Response, next: NextFunction) => {
   //Get the jwt token from the head
   const token = <string>req.header('Authorization').replace('Bearer ', '');
   let jwtPayload;
