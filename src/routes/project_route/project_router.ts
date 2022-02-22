@@ -18,3 +18,9 @@ projectRouter.get("/", [verifyUser], ProjectController.getAllProject);
 
 // GET Detail Project/:id
 projectRouter.get("/:id", [verifyUser], ProjectController.getProject);
+
+//Create project
+projectRouter.post("/", [verifyUser], ProjectController.createProject)
+
+// Update Project
+projectRouter.put("/:id", [verifyUser], ProjectController.updateProject);
