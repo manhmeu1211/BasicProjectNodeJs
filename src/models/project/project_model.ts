@@ -25,4 +25,9 @@ export const Project = dbConfig.define("projects", {
     allowNull: false,
     type: DataTypes.INTEGER
   },
+  status: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    defaultValue: 2
+  }
 });
