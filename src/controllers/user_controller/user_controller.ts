@@ -80,5 +80,46 @@ class UserController {
       errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, e.message), req, res)
     }
   }
+  static updateUser = async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id);
+    try {
+      const updateUser = await User.update(
+        {
+          username: req.body.username,
+          name: req.body.name,
+          address: req.body.address,
+          avatarUrl: req.body.avatarUrl,
+          birthday: req.body.birthday,
+          company_id: req.body.company_id,
+          role: req.body.role
+        }, {
+        where: {
+          id: id
+        }
+      });
+      if (_.first(updateUser) === 1) {
+        const user = await User.findOne({ where: { id: id } });
+        res.status(StatusCodeException.SUCESS).send({ status: StatusCodeException.SUCESS, message: "Sucess", user: user })
+      } else {
+        errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, "Update user fail"), req, res)
+      }
+    } catch (e) {
+      errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, e.message), req, res)
+    }
+  }
+
+  static deleteUser = async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id);
+    try {
+      const user = await User.destroy({
+        where: {
+          id: id
+        }
+      });
+      res.status(StatusCodeException.SUCESS).send({ status: StatusCodeException.SUCESS, message: "Success" })
+    } catch (e) {
+      errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, e.message), req, res)
+    }
+  }
 }
 export default UserController;
