@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { getToken, signToken, md5, signRefreshToken } from "../.././common/ultils"
+import express, { Request, Response } from "express";
+import {getToken, signToken, md5} from "../.././common/ultils"
 import { User } from "../../models/user/user_model";
 import { errorHandler, StatusCodeException } from "../../middleware/error_middleware";
 import HttpException from "../../common/http-exception";
@@ -34,7 +34,6 @@ class AuthController {
                     birthday: _.first(users).getDataValue('birthday'),
                     company_id: _.first(users).getDataValue('company_id'),
                 })
-
                 let refreshToken = signRefreshToken({
                     id: _.first(users).getDataValue('id'),
                     name: _.first(users).getDataValue('name'),
