@@ -34,7 +34,28 @@ class UserController {
       errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, e.message), req, res)
     }
   }
-
- 
+ //Get one User and Project of user
+    static getUser = async (req: Request, res: Response) => {
+        const id: number = parseInt(req.params.id);
+        try {
+          const user = await User.findAll({
+            attributes: [Colums.id, Colums.name, Colums.address, Colums.birthday, Colums.avatarUrl, Colums.role],
+            where: {
+              id: id
+            },
+            include: {
+              model: Project,
+              attributes: [Colums.id, Colums.name, Colums.createdAt, Colums.updatedAt, Colums.status]
+            }
+          });
+          if (user.length === 0 || !user) {
+            errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, 'Cannot find user'), req, res)
+          } else {
+            res.status(StatusCodeException.SUCESS).send({status: StatusCodeException.SUCESS, user: user})
+          }
+        } catch (e) {
+           errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, e.message), req, res)
+        }
+      }
 }
 export default UserController;
