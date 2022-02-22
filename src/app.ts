@@ -10,6 +10,7 @@ import { dbConfig } from './helpers/dbconfig'
 import * as _ from 'lodash';
 import { authRouter } from "./routes/auth_route/auth_router";
 import { usersRouter } from "./routes/user_route/user_router";
+import { projectRouter } from "./routes/project_route/project_router";
 
 //Load env varriable from file .env to process.env
 dotenv.config();
@@ -40,6 +41,8 @@ app.use(express.urlencoded())
 app.use("/api/v1/login", authRouter)
 //User router
 app.use("/api/v1/users", usersRouter);
+//Project router
+app.use("/api/v1/projects", projectRouter);
 
 //DB connect
 dbConfig.authenticate()
