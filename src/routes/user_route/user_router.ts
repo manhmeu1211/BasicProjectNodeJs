@@ -13,8 +13,12 @@
   * Routes Definitions
   */
  
- // GET Employees/
+ // GET List Users/
 usersRouter.get("/", [checkJwt], UserController.getAllUser);
  
-// GET Employee/:id
+// GET Detail User/:id
 usersRouter.get("/:id", [checkJwt], UserController.getUser);
+
+ // Create User/
+ usersRouter.post("/", [checkJwt], UserController.createUser);
+ 
