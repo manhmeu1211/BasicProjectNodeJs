@@ -24,3 +24,6 @@ projectRouter.post("/", [verifyUser], ProjectController.createProject)
 
 // Update Project
 projectRouter.put("/:id", [verifyUser], ProjectController.updateProject);
+
+// DELETE Project/:id
+projectRouter.delete("/:id", [verifyUser], ProjectController.deleteProject);

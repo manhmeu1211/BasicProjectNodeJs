@@ -146,4 +146,17 @@ export default class ProjectController {
         }
     }
 
+    static deleteProject = async (req: Request, res: Response) => {
+        const id: number = parseInt(req.params.id);
+        try {
+          const user = await Project.destroy({
+            where: {
+              id: id
+            }
+          });
+          res.status(StatusCodeException.SUCESS).send({ status: StatusCodeException.SUCESS, message: "Success"})
+        } catch (e) {
+          errorHandler(new HttpException(StatusCodeException.BAD_REQUEST, e.message), req, res)
+        }
+      }
 }
