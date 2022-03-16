@@ -43,6 +43,9 @@ export const User = dbConfig.define("users", {
         }
       },
     },
+    project_id: {
+      type: DataTypes.INTEGER,
+    },
     role: {
       type: DataTypes.INTEGER,
       allowNull: false,
