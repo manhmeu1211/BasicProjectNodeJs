@@ -8,6 +8,7 @@ import helmet from "helmet";
 import { errorHandler } from "./middleware/error_middleware";
 import { dbConfig } from './helpers/dbconfig'
 import * as _ from 'lodash';
+import { authRouter } from "./routes/auth_route/auth_route";
 
 //Load env varriable from file .env to process.env
 dotenv.config();
@@ -34,6 +35,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded())
 
+//Routes
+app.use("/api/v1/login", authRouter)
 
 //DB connect
 dbConfig.authenticate()

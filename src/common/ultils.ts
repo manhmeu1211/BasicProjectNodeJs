@@ -23,3 +23,7 @@ export function verifyToken (token: string) {
 export function signToken(data: any) {
     return jwt.sign({ ...data }, config.jwtSecret, { expiresIn: '24h' });
 };
+
+export function signRefreshToken(data: any) {
+    return jwt.sign({ ...data }, config.jwtSecret, { expiresIn: '48h' });
+};
